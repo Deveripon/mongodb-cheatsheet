@@ -13,6 +13,11 @@ quick references to get you connected and CRUD'ing in no time!
 - [Database and Collections](#database-and-collections)
   - [Drop](#drop)
   - [Run Javascript File](#run-javascript-file)
+- [CRUD](#crud)
+  - [Create / Insert](#create--insert)
+  - [Read / View](#read--view)
+  - [Update](#update)
+  - [Delete/Remove](#deleteremove)
 - [MongoDB Operators](#mongodb-operators)
   - [Query and Projection Operators](#query-and-projection-operators)
   - [Update Operations Operator](#update-operations-operator)
@@ -62,6 +67,64 @@ db.dropDatabase()   // drop the database
 ```Shell
 load("myScript.js")
 ```
+
+#### CRUD
+
+##### Create / Insert
+
+```shell
+db.<collectionName>.insertOne() //Insert one object data into the collection
+db.<collectionName>.insertMany() //Insert many objects data into the collection as Array of objects
+db.<collectionName>.insertMany([{name:"devripon"},{name: "Alex"},{ordered : false}]) //Insert many objects data into the collection as Array of objects with Unordered
+db.<collectionName>.insertOne({date : ISODate()}) //insert ISO date into the collection
+```
+
+##### Read / View
+
+```shell
+
+    db.<collectionName>.find(); //Find all objects. it will return 20 data in a page
+    db.<collectionName>.findOne(); //return a single object in the collection
+    db.<collectionName>.find().pretty(); // return all objects in the collection as Prettier formate
+    db.<collectionName>.find({name: "devripon",age:30}) // It will return data logically in the collection by using Implicit Logical `&&` operator
+    db.<collectionName>.find({name: "devripon"}) // search data in the collection by using Object Query
+    db.<collectionName>.find({date:ISODate("2023-10-04T07:11:34.113Z") // return data by using date query
+    db.<collectionName>.distinct("name")// it will return all values of name key in the collection
+    db.<collectionName>.find({name: "Max", age: 32}).explain("executionStats") // it will return data with all execution stats in details
+
+    //Count the number of data in the collection
+
+    db.<collectionName>.countDocuments() // it will return the number of documents available in the collection
+    db.<collectionName>.estimatedDocuments() // it will return the number of documents available in the collection
+    db.<collectionName>.countDocuments({name: "devripon"}) // it will return the number of documents available in the collection of specific object queries
+
+    // find data by comparison
+
+    db.<collectionName>.find({"year":{$gt: 1990}}) //it return all the data which year value is GRATER THAN 1990
+    db.<collectionName>.find({"year":{$gte: 1990}}) // it return all the data which year value is GRATER THAN and EQUAL of 1990
+    db.<collectionName>.find({"year":{$lt: 1990}}) // it return all the data which year value is LESS THAN 1990
+    db.<collectionName>.find({"year":{$lte: 1990}}) // it return all the data which year value is LESS THAN and EQUAL of 1990
+    db.<collectionName>.find({"year":{$ne: 1990}}) // it return all the data which year value is NOT EQUAL of 1990
+    db.<collectionName>.find({"year":{$in:[1990,1995]}}) //it will return all the data which year value is EITHER 1990 or 1995
+    db.<collectionName>.find({"year":{$nin:[1990,1995]}}) // it will return all the data which year value is NOT 1990 OR 1995
+
+    //Data find logically
+
+    db.<collectionName>.find({name:{$not:{$eq: "devripon"}}}) // it will return all the data which name value is not equal to "devripon"
+    db.<collectionName>.find({$or:[{year:{$lt: 1999}},{year: {$gt: 1970}}]}) // it will return all the data by matching anyone of those two statements
+    db.<collectionName>.find({$nor:[{year:1995},{year:1990}]}) // it will return all the data which will not match both those two statements
+    db.<collectionName>.find({$and:[{year:1995},{year:1987}]}) // it will return all the data which will match both those two statements
+
+```
+
+##### Update
+
+```shell
+
+
+```
+
+##### Delete/Remove
 
 #### MongoDB Operators
 
